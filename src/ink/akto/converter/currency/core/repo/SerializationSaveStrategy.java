@@ -1,16 +1,14 @@
 package ink.akto.converter.currency.core.repo;
 
 import ink.akto.converter.currency.core.repo.RepoContracts.ISaveStrategy;
-import ink.akto.converter.currency.core.repo.RepoContracts.IValuta;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
-import java.util.List;
 
 /**
  * Created by Ruben on 30.08.2017.
  */
-public class SerializationSaveStrategy implements ISaveStrategy<List<IValuta>, String>
+public class SerializationSaveStrategy implements ISaveStrategy<Serializable, String>
 {
     @NotNull File cashDir;
 
@@ -20,7 +18,7 @@ public class SerializationSaveStrategy implements ISaveStrategy<List<IValuta>, S
     }
 
     @Override
-    public void save(@NotNull List<IValuta> valutas, @NotNull String identifier) throws Exception
+    public void save(@NotNull Serializable valutas, @NotNull String identifier) throws Exception
     {
         FileOutputStream outputStream = new FileOutputStream(new File(cashDir, identifier));
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
@@ -31,12 +29,13 @@ public class SerializationSaveStrategy implements ISaveStrategy<List<IValuta>, S
 
     @NotNull
     @Override
-    public List<IValuta> restore(@NotNull String identifier) throws Exception
+    public Serializable restore(@NotNull String identifier) throws Exception
     {
         FileInputStream inputStream = new FileInputStream(new File(cashDir, identifier));
         ObjectInputStream objectInputStream= new ObjectInputStream(inputStream);
-        List<IValuta> valutas = (List<IValuta>) objectInputStream.readObject();
+//        List<IValuta> valutas = (List<IValuta>) objectInputStream.readObject();
+        Object valutas = objectInputStream.readObject();
         objectInputStream.close();
-        return valutas;
+        return (Serializable) valutas;
     }
 }

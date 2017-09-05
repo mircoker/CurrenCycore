@@ -16,7 +16,7 @@ public interface RepoContracts
     interface IMainModel extends IMVPModel
     {
         @NotNull List<IValuta> updateValutasBlocking() throws Exception;
-        @NotNull List<IValuta> getRuntimeCashingValutas();
+        @NotNull List<IValuta> getCashedValutas() throws Exception;
     }
 
     interface IGetCourseStrategy<VALUTA_TYPE> extends IStrategy

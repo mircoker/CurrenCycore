@@ -10,7 +10,7 @@ public class Main
 //        MainModel model = new MainModel(new CBRGetCourseStrategy(), new SerializationSaveStrategy(new File(".")));
 //
 //        Runnable runnable = () ->
-//                System.out.println(model.getRuntimeCashingValutas());
+//                System.out.println(model.getCashedValutas());
 //
 //        ThreadsManager.init(Runnable::run).executeInDemonThread(()->
 //        {

@@ -1,6 +1,5 @@
-package ink.akto.converter.currency.core.repo.models;
+package ink.akto.converter.currency.core.repo;
 
-import ink.akto.converter.currency.core.repo.RepoContracts;
 import ink.akto.converter.currency.core.repo.RepoContracts.IValuta;
 import org.jetbrains.annotations.NotNull;
 

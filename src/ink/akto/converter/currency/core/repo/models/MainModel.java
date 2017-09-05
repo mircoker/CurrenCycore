@@ -1,6 +1,5 @@
 package ink.akto.converter.currency.core.repo.models;
 
-import ink.akto.converter.currency.core.repo.RepoContracts;
 import ink.akto.converter.currency.core.repo.RepoContracts.IGetCourseStrategy;
 import ink.akto.converter.currency.core.repo.RepoContracts.IMainModel;
 import ink.akto.converter.currency.core.repo.RepoContracts.ISaveStrategy;
@@ -16,16 +15,13 @@ public class MainModel implements IMainModel
 {
     @NotNull private IGetCourseStrategy<IValuta> getCourseStrategy;
     @NotNull private ISaveStrategy<List<IValuta>, String> saveStrategy;
-    @NotNull private RepoContracts.IRuntimeCashStrategy<List<IValuta>, String> runtimeCashStrategy;
     @NotNull protected String saveIdentifier;
 
     public MainModel(@NotNull IGetCourseStrategy<IValuta> getCourseStrategy,
-                     @NotNull ISaveStrategy<List<IValuta>, String> saveStrategy,
-                     @NotNull RepoContracts.IRuntimeCashStrategy<List<IValuta>, String> cashStrategy)
+                     @NotNull ISaveStrategy<List<IValuta>, String> saveStrategy)
     {
         this.getCourseStrategy = getCourseStrategy;
         this.saveStrategy = saveStrategy;
-        this.runtimeCashStrategy = cashStrategy;
         saveIdentifier = "valutas";
     }
 
@@ -53,12 +49,13 @@ public class MainModel implements IMainModel
         }
 
         list = saveStrategy.restore(saveIdentifier);
-        runtimeCashStrategy.save(list, saveIdentifier);
         return list;
     }
 
     @Override
-    public @NotNull List<IValuta> getRuntimeCashingValutas() {
-        return runtimeCashStrategy.restore(saveIdentifier);
+    @NotNull
+    public List<IValuta> getCashedValutas() throws Exception
+    {
+        return saveStrategy.restore(saveIdentifier);
     }
 }
