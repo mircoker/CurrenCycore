@@ -33,7 +33,6 @@ public class SerializationSaveStrategy implements ISaveStrategy<Serializable, St
     {
         FileInputStream inputStream = new FileInputStream(new File(cashDir, identifier));
         ObjectInputStream objectInputStream= new ObjectInputStream(inputStream);
-//        List<IValuta> valutas = (List<IValuta>) objectInputStream.readObject();
         Object valutas = objectInputStream.readObject();
         objectInputStream.close();
         return (Serializable) valutas;

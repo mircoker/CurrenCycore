@@ -46,9 +46,9 @@ public class MainModel implements IMainModel
             catch (Exception e)
         {
             e.printStackTrace();
+            list = saveStrategy.restore(saveIdentifier);
         }
 
-        list = saveStrategy.restore(saveIdentifier);
         return list;
     }
 
